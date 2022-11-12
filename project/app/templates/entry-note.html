@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col s12 m12 l5 left-align">
+    <h5>
+      {{ note.title }}
+    </h5>
+    <div class="section">
+      <h6>Content</h6>
+      <pre>{{ note.content }}</pre>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h6>Category</h6>
+      <p>{{ note.category }}</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 left-align">
+    <h5>Shared With</h5>
+    <button class="btn waves-effect waves-light" onclick="location.href='/share/{{ note.id }}/entry-note'">Generate a
+      magiclink to share</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m12 l12 left-align">
+    {% if shared_notes %}
+    <table>
+      <thead>
+        <tr>
+          <th>Magic Link</th>
+          <th>Start Date</th>
+          <th>Duration</th>
+          <th>Expired?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for shared_note in shared_notes %}
+        <tr>
+          <td><a href="{{ shared_note.magiclink }}">{{ shared_note.magiclink }}</a></td>
+          <td>{{ shared_note.start_date }}</td>
+          <td>{{ shared_note.duration }}</td>
+          <td>{{ shared_note.is_expired }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

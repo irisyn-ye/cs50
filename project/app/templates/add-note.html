@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h5>Add Secure Note</h5>
+<div>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s4">
+                    {{ form.noteTitle(placeholder = "Title", class ="materialize-textarea icon_prefix2", id = "noteTitle") }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s11">
+                    {{ form.noteContent(placeholder = "Content", class ="materialize-textarea icon_prefix2", id = "noteContent") }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s4">
+                    <!-- Not having the disabled selected option here because of the limitation of WTForm. Current workaround: setting the default option as "Other" -->
+                    {{ form.noteCategory(id = "noteCategory") }}
+                    {{ form.noteCategory.label }}
+                </div>
+            </div>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+        <button class="btn waves-effect waves-light" type="submit" id="addNote">Add Note
+        </button>
+        <button class="btn waves-effect waves-teal btn-flat" onclick="location.href='/'">Cancel
+        </button>
+    </form>
+</div>
+
+{% endblock %}
+{% block additionallibraries_bottom %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var options = document.querySelectorAll('option');
+    var instances = M.FormSelect.init(elems, options);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+{% if request_from == "add-note" or request_from == "add-account" %}
+<h5>Do you want to share?</h5>
+<div class="row" id="to-share-choices">
+    <button class="btn waves-effect waves-light" type="submit" id="share">Yes
+    </button>
+    <button class="btn waves-effect waves-teal btn-flat" type="submit" id="no-share">No
+    </button>
+</div>
+{% endif %}
+{% if request_from == "add-note" or request_from == "add-account" %}
+<div class="row" id="share-form" hidden>
+{% else %}
+<div class="row" id="share-form">
+{% endif %}
+    <form class ="col s12" action="/share-submit/{{ entity_id }}/{{ request_from }}" method="post">
+        <div class="row">
+        <div class="input-field col s12">
+            <input placeholder="Enter duration (days)" name="duration" id="duration" type="number" min="0" step="1" class="validate">
+            <span class="helper-text" data-error="Please enter numbers" data-success="right">Enter how many days you allow the receiver to access the shared resource.</span>
+        </div>
+    </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit">Generate Link
+                <i class="material-icons right">add</i>
+            </button>
+            <button class="btn waves-teal btn-flat" type="button" onclick="window.history.back()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block additionallibraries_bottom %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/share.js') }}"></script>
+{% endblock %}
